@@ -23,8 +23,11 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
+    "crypto-js": "^3.1.9-1",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
-    "mysql": "^2.17.1"
+    "hashmap": "^2.3.0",
+    "mysql": "^2.17.1",
+    "open-graph-scraper": "^3.6.2"
   }
 }
