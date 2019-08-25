@@ -51,10 +51,10 @@ io.sockets.on('connection', (socket, option) => {
     socket.on('join', (roomId, fn) => {
         socket.join(roomId, () => {
             util.log("Join", roomId, Object.keys(socket.rooms));
+            if (fn) {
+                fn();
+            }
         });
-        if (fn) {
-            fn();
-        }
     });
 
     socket.on('leave', (roomId, fn) => {
@@ -80,6 +80,13 @@ io.sockets.on('connection', (socket, option) => {
             room: data.room,
             msg: data.msg
         });
+    });
+
+    socket.on('message-for-one', (socketid, msg, fn) => {
+        // socket.broadcast.to(socketid).emit('message', {
+        //     msg: msg
+        // });
+        socket.to(socketid).emit();
     });
 
     socket.on('disconnecting', (data) => {

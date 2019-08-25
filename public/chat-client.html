@@ -28,13 +28,17 @@
         <input type="text" id="msg" value="hi~">
         <button onclick="send()" id="btn-send">Send</button>
     </div>
+    <div>
+        <input type="text" id="socketid" value="hi~">
+        <button onclick="sendOne()">귓속말</button>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var square = 'square';
-        var joinedRoom = square;
+        var joinedRoom = null;
         var socket = io('http://localhost:3000/?aaa=123');
         var $list = $('#list');
 
@@ -91,6 +95,7 @@
                 socket.emit('leave', joinedRoom);
                 joinedRoom = roomid;
                 displayRooms();
+                $('#status').text("Joined : ", joinedRoom);
             });
         }
 
@@ -99,6 +104,13 @@
                 console.log("rooms>>", rooms);
                 $('#rooms').text(rooms);
             });
+        }
+
+        function sendOne() {
+            let socketid = $('#socketid').val();
+            if (!socketid) return alert("input the socketid!!");
+
+            socket.emit("message-for-one", socketid, "귓속말 : " + $('#msg').val());
         }
     </script>
 </body>
